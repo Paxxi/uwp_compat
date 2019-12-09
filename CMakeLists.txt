@@ -85,8 +85,15 @@ install(DIRECTORY
 )
 
 install(FILES
-  $<TARGET_PDB_FILE:uwp_compat>
+  ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/uwp_compat.pdb
   DESTINATION lib
+  CONFIGURATIONS RelWithDebInfo
+)
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/Debug/uwp_compatd.pdb
+  DESTINATION lib
+  CONFIGURATIONS Debug
 )
 
 install(EXPORT ${PROJECT_NAME}
