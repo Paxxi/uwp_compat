@@ -1,6 +1,8 @@
 #pragma once
 
 #include "encoding.h"
+#include "dlfcn.h"
+#include "io.h"
 #include "random.h"
 #include "path.h"
 

@@ -22,12 +22,12 @@ wchar_t* to_utf16(const char* str, size_t length)
   if (result == 0)
     return NULL;
 
-  length = result + 1;
+  length = static_cast<size_t>(result) + 1;
   wchar_t* strW = reinterpret_cast<wchar_t*>(std::malloc(length * sizeof(wchar_t)));
   if (strW == nullptr)
     return nullptr;
 
-  result = MultiByteToWideChar(CP_UTF8, 0, str, result, strW, length);
+  result = MultiByteToWideChar(CP_UTF8, 0, str, result, strW, static_cast<int>(length));
 
   if (result == 0)
   {
@@ -58,7 +58,7 @@ char* to_utf8(const wchar_t* str, size_t length)
   if (newStr == nullptr)
     return nullptr;
 
-  result = WideCharToMultiByte(CP_UTF8, 0, str, length, newStr, required, NULL, NULL);
+  result = WideCharToMultiByte(CP_UTF8, 0, str, static_cast<int>(length), newStr, required, NULL, NULL);
   if (result == 0)
   {
     std::free(newStr);

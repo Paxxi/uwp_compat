@@ -5,12 +5,14 @@ project(uwp_compat VERSION 0.1.0 LANGUAGES CXX)
 add_library(uwp_compat
   include/uwp_compat/dlfcn.h
   include/uwp_compat/encoding.h
+  include/uwp_compat/io.h
   include/uwp_compat/path.h
   include/uwp_compat/random.h
   include/uwp_compat/uwp_compat.h
   src/dlfcn.cpp
   src/encoding.cpp
   src/internal.hpp
+  src/io.cpp
   src/path.cpp
   src/process.cpp
   src/random.cpp
@@ -21,6 +23,13 @@ target_compile_definitions(uwp_compat
   $<$<CONFIG:Debug>:DEBUG>
   $<$<CONFIG:RelWithDebInfo>:NDEBUG>
 )
+
+if(WINDOWS_STORE)
+  target_compile_definitions(uwp_compat
+    PRIVATE
+      MS_APP
+  )
+endif()
 
 target_include_directories(uwp_compat
   PRIVATE
