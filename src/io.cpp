@@ -1,7 +1,10 @@
 #include <uwp_compat/io.h>
+#include <uwp_compat/encoding.h>
+
+#include <cstdlib>
 
 
-HANDLE uwp_create_file(
+HANDLE uwp_create_file_u16(
 	_In_ LPCWSTR lpFileName,
 	_In_ DWORD dwDesiredAccess,
 	_In_ DWORD dwShareMode,
@@ -57,4 +60,29 @@ HANDLE uwp_create_file(
 
 	return CreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, &ext);
 #endif
+}
+
+HANDLE uwp_create_file_u8(
+	_In_ LPCSTR lpFileName,
+	_In_ DWORD dwDesiredAccess,
+	_In_ DWORD dwShareMode,
+	_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+	_In_ DWORD dwCreationDisposition,
+	_In_ DWORD dwFlagsAndAttributes,
+	_In_opt_ HANDLE hTemplateFile)
+{
+	auto filename = to_utf16(lpFileName, -1);
+	if (!filename)
+		return INVALID_HANDLE_VALUE;
+
+	HANDLE h = uwp_create_file_u16(filename,
+		dwDesiredAccess,
+		dwShareMode,
+		lpSecurityAttributes,
+		dwCreationDisposition,
+		dwFlagsAndAttributes,
+		hTemplateFile);
+	std::free(filename);
+
+	return h;
 }

@@ -9,8 +9,18 @@
 extern "C" {
 #endif
 
-	HANDLE uwp_create_file(
+	HANDLE uwp_create_file_u16(
 		_In_ LPCWSTR lpFileName,
+		_In_ DWORD dwDesiredAccess,
+		_In_ DWORD dwShareMode,
+		_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+		_In_ DWORD dwCreationDisposition,
+		_In_ DWORD dwFlagsAndAttributes,
+		_In_opt_ HANDLE hTemplateFile
+	);
+
+	HANDLE uwp_create_file_u8(
+		_In_ LPCSTR lpFileName,
 		_In_ DWORD dwDesiredAccess,
 		_In_ DWORD dwShareMode,
 		_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,
