@@ -5,11 +5,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+  void uwp_fix_slash_u16(wchar_t* str, size_t length);
 
   char* uwp_executable_directory_u8();
   wchar_t* uwp_executable_directory_u16();
-  void uwp_fix_slash_u16(wchar_t* str, size_t length);
 
+#ifdef MS_APP
   wchar_t* uwp_get_fonts_u16();
   char* uwp_get_fonts_u8();
 
@@ -111,6 +112,7 @@ extern "C" {
 
   wchar_t* uwp_get_videos_u16();
   char* uwp_get_videos_u8();
+#endif
 
 #ifdef __cplusplus
 }

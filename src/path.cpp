@@ -11,17 +11,21 @@
 #endif
 #include <windows.h>
 
+#ifdef MS_APP
 #include <winrt/Windows.Storage.h>
+#endif
 
 #include <limits>
 #include <cstdlib>
 #include <cstdint>
 
+#ifdef MS_APP
 using winrt::Windows::Storage::AppDataPaths;
 using winrt::Windows::Storage::KnownFolders;
 using winrt::Windows::Storage::KnownFolderId;
 using winrt::Windows::Storage::SystemDataPaths;
 using winrt::Windows::Storage::UserDataPaths;
+#endif
 
 wchar_t* uwp_executable_directory_u16()
 {
@@ -91,6 +95,7 @@ void uwp_fix_slash_u16(wchar_t* str, size_t length)
   }
 }
 
+#ifdef MS_APP
 wchar_t* uwp_get_fonts_u16()
 {
   return hstring_to_wstring(SystemDataPaths::GetDefault().Fonts());
@@ -430,3 +435,4 @@ char* uwp_get_windows_u8()
  {
    return hstring_to_cstring(UserDataPaths::GetDefault().Videos());
  }
+#endif

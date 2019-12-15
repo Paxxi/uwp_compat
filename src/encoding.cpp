@@ -8,7 +8,9 @@
 #include <cstdlib>
 #include <cstring>
 
+#ifdef MS_APP
 #include <winrt/base.h>
+#endif
 
 wchar_t* to_utf16(const char* str, size_t length)
 {
@@ -71,6 +73,7 @@ char* to_utf8(const wchar_t* str, size_t length)
   return newStr;
 }
 
+#ifdef MS_APP
 wchar_t* hstring_to_wstring(const winrt::hstring&& hstr)
 {
   uint32_t length_with_null = hstr.size() + 1;
@@ -102,3 +105,4 @@ char* wstring_to_cstring(wchar_t* wstr)
 
   return cstr;
 }
+#endif
